@@ -1,5 +1,6 @@
 const axios = require("axios");
 const { Worker } = require("worker_threads");
+const fs = require("fs");
 
 async function getEmails(n = 10) {
   try {
@@ -39,7 +40,7 @@ async function startThread(reff, processCount) {
 
 const numOfCpus = require("os").cpus().length;
 (async () => {
-  const reff = "T6ajX4PBwB8n";
+  const reff = fs.readFileSync("reff.txt", "utf8").trim(); // read refferal from reff.txt
   const processCount = Math.floor(numOfCpus / 2);
   await startThread(reff, processCount);
 })();
